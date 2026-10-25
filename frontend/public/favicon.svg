@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Wind forecast">
+  <rect width="48" height="48" rx="10" fill="#1c1b19"/>
+  <g fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round">
+    <path d="M11 18h17a4.5 4.5 0 1 0-4.2-6.1"/>
+    <path d="M11 24h24a4.5 4.5 0 1 1-4.2 6.1"/>
+    <path d="M11 30h13"/>
+  </g>
+  <circle cx="36" cy="24" r="2.2" fill="#7fd4bd"/>
+</svg>

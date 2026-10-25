@@ -11,7 +11,11 @@ client = TestClient(app)
 def test_root():
     response = client.get("/")
     assert response.status_code == 200
-    assert "health" in response.json()
+    # In production/build, static frontend index.html is served; otherwise JSON
+    if "text/html" in response.headers.get("content-type", ""):
+        assert "<html" in response.text.lower()
+    else:
+        assert "health" in response.json()
 
 
 def test_health():

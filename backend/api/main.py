@@ -21,16 +21,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+
 app.include_router(api_router, prefix="/api")
 
-
-@app.get("/")
-def root():
-    return {
-        "message": "UK Wind Forecast Accuracy Analysis API",
-        "docs": "/docs",
-        "health": "/api/health",
-    }
+# Mount frontend build if directory exists (for Docker and unified container deploy)
+STATIC_DIR = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+if STATIC_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static_frontend")
+else:
+    @app.get("/")
+    def root():
+        return {
+            "message": "UK Wind Forecast Accuracy Analysis API",
+            "docs": "/docs",
+            "health": "/api/health",
+        }
 
 
 @app.exception_handler(Exception)
