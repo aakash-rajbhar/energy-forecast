@@ -63,16 +63,28 @@ def get_db_connection(
     else:
         target_path = Path(DEFAULT_DB_PATH)
         if not target_path.exists():
-            cwd_candidate = Path.cwd() / "data" / "energy.db"
-            if cwd_candidate.exists():
-                target_path = cwd_candidate
-            else:
-                root_candidate = Path(__file__).resolve().parent.parent / "data" / "energy.db"
-                if root_candidate.exists():
-                    target_path = root_candidate
+            candidates = [
+                Path.cwd() / "data" / "energy.db",
+                Path(__file__).resolve().parent.parent / "data" / "energy.db",
+                Path("/var/task/data/energy.db"),
+                Path("/vercel/path0/data/energy.db"),
+            ]
+            for candidate in candidates:
+                if candidate.exists():
+                    target_path = candidate
+                    break
+            if not target_path.exists():
+                cwd_items = [p.name for p in Path.cwd().iterdir()] if Path.cwd().is_dir() else []
+                raise FileNotFoundError(
+                    f"SQLite database not found. Target: {target_path}, CWD: {Path.cwd()}, CWD items: {cwd_items}"
+                )
+
     if read_only:
-        uri = f"file:{target_path.as_posix()}?mode=ro"
-        conn = sqlite3.connect(uri, uri=True)
+        try:
+            uri = f"file:{target_path.as_posix()}?mode=ro"
+            conn = sqlite3.connect(uri, uri=True)
+        except sqlite3.OperationalError:
+            conn = sqlite3.connect(target_path.as_posix())
     else:
         target_path.parent.mkdir(parents=True, exist_ok=True)
         conn = sqlite3.connect(target_path.as_posix())
