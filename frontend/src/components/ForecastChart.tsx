@@ -210,11 +210,11 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                   name={`Cutoff forecast (≤ ${cutoff})`}
                   dataKey="forecast"
                   stroke={CHART.forecast}
-                  strokeWidth={2}
+                  strokeWidth={2.25}
                   strokeDasharray="5 3"
-                  dot={false}
-                  activeDot={{ r: 4, fill: CHART.forecast, strokeWidth: 0 }}
-                  connectNulls={false}
+                  dot={{ r: 3.5, fill: CHART.forecast, strokeWidth: 1, stroke: "#fff" }}
+                  activeDot={{ r: 5, fill: CHART.forecast, strokeWidth: 2, stroke: "#fff" }}
+                  connectNulls={true}
                   isAnimationActive={false}
                 />
               </LineChart>
