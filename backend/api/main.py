@@ -21,14 +21,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+import os
 from pathlib import Path
 from fastapi.staticfiles import StaticFiles
 
 app.include_router(api_router, prefix="/api")
 
 # Mount frontend build if directory exists (for Docker and unified container deploy)
+# On Vercel, static frontend is served by the Vercel frontend service
 STATIC_DIR = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
-if STATIC_DIR.is_dir():
+if STATIC_DIR.is_dir() and not os.environ.get("VERCEL"):
     app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static_frontend")
 else:
     @app.get("/")

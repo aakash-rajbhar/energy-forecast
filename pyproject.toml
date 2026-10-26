@@ -1,3 +1,15 @@
+[project]
+name = "energy-forecast"
+version = "0.1.0"
+description = "UK Wind Forecast Accuracy Analysis"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110.0",
+    "pydantic>=2.6.0",
+    "starlette>=0.36.0",
+    "uvicorn>=0.28.0"
+]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]

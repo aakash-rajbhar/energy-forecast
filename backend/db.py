@@ -58,7 +58,18 @@ def get_db_connection(
     db_path: Optional[Path] = None, read_only: bool = False
 ) -> sqlite3.Connection:
     """Open a SQLite database connection with row factory enabled."""
-    target_path = Path(db_path or DEFAULT_DB_PATH)
+    if db_path is not None:
+        target_path = Path(db_path)
+    else:
+        target_path = Path(DEFAULT_DB_PATH)
+        if not target_path.exists():
+            cwd_candidate = Path.cwd() / "data" / "energy.db"
+            if cwd_candidate.exists():
+                target_path = cwd_candidate
+            else:
+                root_candidate = Path(__file__).resolve().parent.parent / "data" / "energy.db"
+                if root_candidate.exists():
+                    target_path = root_candidate
     if read_only:
         uri = f"file:{target_path.as_posix()}?mode=ro"
         conn = sqlite3.connect(uri, uri=True)
