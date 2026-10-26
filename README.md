@@ -6,7 +6,7 @@ An analytical full-stack pilot developed for a UK electricity utility day-ahead 
 
 ## 1. Quick Links
 
-- **Deployed Live Application:** [https://energy-forecast.vercel.app](https://energy-forecast.vercel.app) *(or your deployed Vercel/Heroku URL)*
+- **Deployed Live Application:** [https://energy-forecast-inky.vercel.app](https://energy-forecast-inky.vercel.app)
 - **Demo Video (Unlisted YouTube):** [Watch Demo Video](https://youtube.com) *(Part 1: Customer Overview <= 5 min | Part 2: Technical Deep Dive <= 5 min)*
 - **GitHub Repository:** [https://github.com/aakash-rajbhar/energy-forecast](https://github.com/aakash-rajbhar/energy-forecast)
 
