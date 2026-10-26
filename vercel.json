@@ -3,9 +3,7 @@
   "services": {
     "app": {
       "root": ".",
-      "framework": "fastapi",
-      "entrypoint": "main:app",
-      "includeFiles": "data/**"
+      "framework": "fastapi"
     },
     "frontend": {
       "root": "frontend",
